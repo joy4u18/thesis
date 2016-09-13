@@ -1,0 +1,10 @@
+Correction for the AIM to work properly in Matlab R2015a 
+--------------------------------------------------------
+--> commented  the duration in slidereditcontrol_set_range function of AIM 
+
+--> commented the figure handle in aim_savecurrentstate
+
+--> commented the autoscaling in do_aimautoscale 
+
+
+

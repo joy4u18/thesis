@@ -1,0 +1,22 @@
+Start 8:14:35
+
+End  11:39:00   time anc 240. 18/5/2015
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+2015/5/17 Cleaned psysoun3.m
+
+2015/5/23 Changed Wavread to Audioread and Audioinfo in readData.m
+
+2015/5/23 Changed Wavread to Audioread and Audioinfo in readData.
+
+2015/5/26 Changed the calibration reference to 1 in runanalysis as callibration is not required for our recordings (Ugly fix)
+
+
+2015/5/30 Updated the matlabParforProgress2 to version 0.2.8 from matlab fileexchange.
+
+
+
+
+
