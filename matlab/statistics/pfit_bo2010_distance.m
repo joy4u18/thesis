@@ -123,14 +123,28 @@ bwd_max = max( x ) - min( x );
 % end
 
 % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
-% bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6); 
-bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6); 
+% bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
 
 hhh(:,i)=bwd;
 % hhh_1(:,i)=bwd;
 bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
 pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
 plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
+
+for temp_idx=1:length(x)
+    try
+i_idx(temp_idx,1)=find(xfit==x(temp_idx));
+    catch err 
+ti = find(xfit>=(x(temp_idx)-1) & xfit<=(x(temp_idx)+1));
+i_idx(temp_idx,1) = min(ti);
+    end
+end
+
+i_pfit=pfit(i_idx);
+
+
+D = deviance(r,m,i_pfit)
 
 z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
 

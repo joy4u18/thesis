@@ -166,6 +166,20 @@ for i=1:size(B_AC,1)
         pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
         plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
         
+        for temp_idx=1:length(x)
+            try
+                i_idx(temp_idx,1)=find(xfit==x(temp_idx));
+            catch err
+                ti = find(xfit>=(x(temp_idx)-1) & xfit<=(x(temp_idx)+1));
+                i_idx(temp_idx,1) = min(ti);
+            end
+        end
+        
+        i_pfit=pfit(i_idx);
+        
+        
+        D = deviance(r,m,i_pfit)
+        
         z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
         
 %         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');

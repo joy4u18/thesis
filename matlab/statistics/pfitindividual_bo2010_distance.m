@@ -44,64 +44,48 @@ grid on;
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
 
-%% LSfit
+%% fit
 
-if(length(x)>2)
 guessing=0;
 lapsing=0;
     
 temp=diff(x);
 bwd_min = min(temp(temp>0));
-
-% if(isempty(bwd_min))
-% bwd_min=min(abs(temp));    %VJ2015
-% end
-
 bwd_max = max( x ) - min( x );
 
-% if(bwd_min == bwd_max)
-% bwd_min=1;                 %VJ2015
-% end
 
 % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
 bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6); 
 % bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+hhh(:,i)=bwd; % Debugging purpose 
 
-hhh(:,i)=bwd;
-% hhh_1(:,i)=bwd;
+
 bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
 pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
 plot( xfit, pfit );  % Plot the fitted curve
 
-z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
+thd(i)=mean(xfit(pfit>0.73&pfit<0.75));
 
 h1=legend('Mean proportion of correct','Local linear fit');
 set(h1,'location','best');
 xlabel('Distance from the object (cm)');
 ylabel('Proportion of correct responses');
 
-else
-    
-h1=legend('Mean proportion of correct','Weibull fit');
-set(h1,'location','best');
-xlabel('Distance from the object (cm)');
-ylabel('Proportion of correct responses');    
-end
 
 end
 figure;
-plot(z_2(1:20),'-s');
+plot(thd(1:20),'-s');
 grid on;
 xlabel('Particpant ID');
 ylabel('Distance Threshold (cm)');
 set(gca,'XTick',1:20);
 set(gca,'XLim',[1 20]);
 hold on;
-plot(z_2(21:40),'-s');
-plot(z_2(41:60),'-s');
-plot(z_2(61:80),'-s');
-plot(z_2(81:100),'-s');
-plot(z_2(101:120),'-s');
+plot(thd(21:40),'-s');
+plot(thd(41:60),'-s');
+plot(thd(61:80),'-s');
+plot(thd(81:100),'-s');
+plot(thd(101:120),'-s');
 legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
-dummy=reshape(z_2,20,6);
-xlswrite('DT',dummy);
+% dummy=reshape(thd,20,6);
+% xlswrite('DT',dummy);
