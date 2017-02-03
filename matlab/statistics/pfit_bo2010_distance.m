@@ -73,7 +73,7 @@ S_L=[spc_5_lec; spc_500_lec];
 
 %% Plot of the DATA
 
-x=([50 100 200 300 400 500])';		% Distance 
+x=(([50 100 200 300 400 500]))';		% Distance 
 m=[56 56 56  56 56 56]';			% Total trails at each distance
 
 % x=[100 150]';		% This is for lecture room but as non parametric fit requires 3 inputs these were not conisdered in the analysis of the thesis
@@ -82,7 +82,7 @@ m=[56 56 56  56 56 56]';			% Total trails at each distance
 for i=1:size(B_AC,1)
 
     
-r=B_AC(i,:)';
+r=S_AC(i,:)';
 
 figure(i);
 plot( x, r ./ m, 'ro');
@@ -93,12 +93,12 @@ grid on;
 
 %% Gaussian Fit
 degpol = 1;                                    % Degree of the polynomial
-guessing =0.5;                                 % Guessing rate
-lapsing = 0.01;                                % Lapsing rate
-b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing,2 );
+guessing =0.4;                                 % Guessing rate
+lapsing = 0;                                % Lapsing rate
+b = binomfit_lims( r, m, x, degpol,'logit', guessing, lapsing);
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
-pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing,2 );
+pfit = binomval_lims( b, xfit, 'logit', guessing, lapsing);
 plot( xfit, pfit, 'k' ,'linewidth',2);         % Plot the fitted curve
 
 z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));

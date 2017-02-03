@@ -117,6 +117,7 @@ otherwise
     linkfun = feval( link, guessing, lapsing );
 end
 
-
+% options_vj = statset('glmfit');
+% options_vj.MaxIter=200000;
 %  fit the GLM model
 b = glmfit( X, [r m], 'binomial', 'link', linkfun);

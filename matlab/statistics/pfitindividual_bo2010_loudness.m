@@ -57,7 +57,7 @@ for i=1:size(STL_AC,1)
     r=flipud(r);
     
     figure(i);
-    plot( x, r ./ m, 'ro');
+    plot( x, r ./ m, 's-');
     axis([min(x) max(x) 0.2 1.2]);
     axis square;
     hold on;
@@ -67,67 +67,68 @@ for i=1:size(STL_AC,1)
     
     %% LSfit
     
-    if(length(x)>2)
-       
-        guessing=0;
-        lapsing=0;        
-        temp=diff(x);
-        bwd_min = min(temp(temp>0));
-		
-%         if(isempty(bwd_min))
-%             bwd_min=min(abs(temp));    %VJ2015
-%         end
-
-        bwd_max = max( x ) - min( x );
-		
-%         if(bwd_min == bwd_max)
-%             bwd_min=1;    %VJ 2015
-%         end
-
-% Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
-        bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);               
-%         bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
-        
-        
-        hhh(:,i)=bwd;
-%         hhh_1(:,i)=bwd;
-        bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
-       
-        
-        pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
-        plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
-        
-        z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
-        
-%         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');
+%     if(length(x)>2)
+%        
+%         guessing=0;
+%         lapsing=0;        
+%         temp=diff(x);
+%         bwd_min = min(temp(temp>0));
+% 		
+% %         if(isempty(bwd_min))
+% %             bwd_min=min(abs(temp));    %VJ2015
+% %         end
+% 
+%         bwd_max = max( x ) - min( x );
+% 		
+% %         if(bwd_min == bwd_max)
+% %             bwd_min=1;    %VJ 2015
+% %         end
+% 
+% % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
+%         bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);               
+% %         bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+%         
+%         
+%         hhh(:,i)=bwd;
+% %         hhh_1(:,i)=bwd;
+%         bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
+%        
+%         
+%         pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+%         plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
+%         
+%         z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
+%         
+% %         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');
+% %         set(h1,'location','best');
+%         xlabel('Loudness (sones)');
+%         ylabel('Proportion of correct responses');
+%         
+%     else
+%         
+%         h1=legend('Mean proportion of correct','logistic fit');
 %         set(h1,'location','best');
         xlabel('Loudness (sones)');
         ylabel('Proportion of correct responses');
-        
-    else
-        
-        h1=legend('Mean proportion of correct','logistic fit');
-        set(h1,'location','best');
-        xlabel('Loudness (sones)');
-        ylabel('Proportion of correct responses');
-    end
+%     end
     end
     
     j=j+1;
 end
-figure;
-plot(z_2(1:20),'-s');
-grid on;
-xlabel('Particpant ID');
-ylabel('Loudness Threshold (sones)');
-set(gca,'XTick',1:20);
-set(gca,'XLim',[1 20]);
-hold on;
-plot(z_2(21:40),'-s');
-plot(z_2(41:60),'-s');
-plot(z_2(61:80),'-s');
-plot(z_2(81:100),'-s');
-plot(z_2(101:120),'-s');
-legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
-dummy=reshape(z_2,20,6);
-xlswrite('LT',dummy);
+%%
+% figure;
+% plot(z_2(1:20),'-s');
+% grid on;
+% xlabel('Particpant ID');
+% ylabel('Loudness Threshold (sones)');
+% set(gca,'XTick',1:20);
+% set(gca,'XLim',[1 20]);
+% hold on;
+% plot(z_2(21:40),'-s');
+% plot(z_2(41:60),'-s');
+% plot(z_2(61:80),'-s');
+% plot(z_2(81:100),'-s');
+% plot(z_2(101:120),'-s');
+% legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
+% dummy=reshape(z_2,20,6);
+% xlswrite('LT',dummy);

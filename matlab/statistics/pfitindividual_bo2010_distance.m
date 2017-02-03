@@ -35,16 +35,24 @@ for i=1:size(PC_AC,1)
     
 r=PC_AC(i,:)';
 
-figure(1);
+figure(i);
 plot( x, r ./ m, 'ro');
 axis([min(x) max(x) 0.2 1.2]); 
 axis square;
 hold on;
 grid on;
+%% Gaussian Fit
+degpol = 1;                                    % Degree of the polynomial
+guessing =0.5;                                 % Guessing rate
+lapsing = 0.01;                                % Lapsing rate
+b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing,2 );
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
+pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing,2 );
+plot( xfit, pfit, 'k' ,'linewidth',2);         % Plot the fitted curve
 
-%% fit
+z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));
+%% Locfit
 
 guessing=0;
 lapsing=0;
@@ -62,30 +70,32 @@ hhh(:,i)=bwd; % Debugging purpose
 
 bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
 pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
-plot( xfit, pfit );  % Plot the fitted curve
+plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
 
 thd(i)=mean(xfit(pfit>0.73&pfit<0.75));
 
-h1=legend('Mean proportion of correct','Local linear fit');
+h1=legend('proportion of correct','Weibull fit','Local linear fit');
 set(h1,'location','best');
 xlabel('Distance from the object (cm)');
 ylabel('Proportion of correct responses');
 
 
 end
-figure;
-plot(thd(1:20),'-s');
-grid on;
-xlabel('Particpant ID');
-ylabel('Distance Threshold (cm)');
-set(gca,'XTick',1:20);
-set(gca,'XLim',[1 20]);
-hold on;
-plot(thd(21:40),'-s');
-plot(thd(41:60),'-s');
-plot(thd(61:80),'-s');
-plot(thd(81:100),'-s');
-plot(thd(101:120),'-s');
-legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
+
+%%
+% figure;
+% plot(thd(1:20),'-s');
+% grid on;
+% xlabel('Particpant ID');
+% ylabel('Distance Threshold (cm)');
+% set(gca,'XTick',1:20);
+% set(gca,'XLim',[1 20]);
+% hold on;
+% plot(thd(21:40),'-s');
+% plot(thd(41:60),'-s');
+% plot(thd(61:80),'-s');
+% plot(thd(81:100),'-s');
+% plot(thd(101:120),'-s');
+% legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
 % dummy=reshape(thd,20,6);
 % xlswrite('DT',dummy);
