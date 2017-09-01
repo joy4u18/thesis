@@ -14,8 +14,13 @@
 
 function displaydualprofile(sai,options,frame_number,ax)
 if nargin<4
-    ax=gca;
+    hs=subplot(2,2,1);   % for plos one article vj2017
+    ax=hs;
+%     ax=gca;
 end
+
+hs=subplot(2,2,3);   % for plos one article vj2017
+ax=hs;
 
 
 % Test if the frame_number is available
@@ -42,6 +47,7 @@ end
 if (getnrpoints(int_sum)~=0)
     fq_sum = (fq_sum/getnrpoints(int_sum)) ;%*options.scalefactor; % *1.7 (VJ2015 removed the scalefactor)
 end
+
 
 cla;
 %Plot both profiles into one figure
@@ -83,5 +89,48 @@ grid on;
 set(fwidth,'linewidth',1.5');  % VJ2015 commented to remove freq sum from the plot
 set(twidth,'linewidth',1.5');
 % legend('Sum of ACF over time delay','Sum of ACF over frequency','location','best');
-legend('spectral profile','temporal profile','location','best');
+hl=legend('Spectral profile','Temporal profile','location','best');
+hl.FontWeight='bold';
+hl.FontSize=8;
+hl.FontName='Arial';
+
+%%
+
+%% Used this for plos one publication vj2017
+hf=gcf;
+hf.Position(3)=700;
+hf.Position(4)=600;
+hf.Position(1)=10;
+hf.Position(2)=10;
+
+
+hs.FontSize=7;
+hs.XLabel.FontSize=10;
+hs.YLabel.FontSize=10;
+hs.FontName='Arial';
+
+% t1 = text(hs,4000,0.1,'A','FontWeight','bold','FontSize',12,'FontName','Arial');
+% t1 = text(hs,4000,0.5,'B','FontWeight','bold','FontSize',12,'FontName','Arial');
+% t1 = text(hs,4000,0.25,'C','FontWeight','bold','FontSize',12,'FontName','Arial');
+% t1 = text(hs,4000,0.1,'D','FontWeight','bold','FontSize',12,'FontName','Arial');
+
+% 100cm object
+% x = [0.19 0.21]; 
+% y = [0.22 0.18];
+% ha=annotation('textarrow',x,y,'String','PEAK');
+% 200 cm object
+% x = [0.62 0.63]; 
+% y = [0.20 0.16];
+% ha=annotation('textarrow',x,y,'String','PEAK');
+% ha.FontName='Arial';
+% ha.FontWeight='bold';
+% ha.FontSize=8;
 return
+
+
+
+
+
+
+
+

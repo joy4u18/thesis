@@ -17,7 +17,8 @@ if nargin<4
     ax=gca;
 end
 
-
+hs= subplot(2,2,4);
+ax = hs;  % plos one 2017
 % ?????? per Definition ????
 % minimum_time_interval=0.1;  % in ms
 % maximum_time_interval=35;
@@ -112,14 +113,20 @@ if length(peaks2)>1
         
         
         if i==1
-            plot(t,ypeak,'Marker','o','Markerfacecolor','b','MarkeredgeColor','b','MarkerSize',10);
-            text(t,ypeak*1.05,sprintf('%3.0f Hz: %4.2f ',1/t,ps),'VerticalAlignment','bottom','HorizontalAlignment','center','color','b','Fontsize',12);
+%             plot(t,ypeak,'Marker','o','Markerfacecolor','b','MarkeredgeColor','b','MarkerSize',10);
+%             text(t,ypeak*1.05,sprintf('%3.0f Hz: %4.2f ',1/t,ps),'VerticalAlignment','bottom','HorizontalAlignment','center','color','b','Fontsize',12);
+            plot(t,ypeak,'Marker','o','Markerfacecolor','b','MarkeredgeColor','b','MarkerSize',5);   % plos one 2017
+            text(t,ypeak*1.05,sprintf('%3.0f Hz: %4.2f ',1/t,ps),'VerticalAlignment','bottom','HorizontalAlignment','center','color','b','Fontsize',8);
+
         else
             plot(t,ypeak,'Marker','o','Markerfacecolor','g','MarkeredgeColor','w','MarkerSize',5);
             text(t,ypeak*1.05,sprintf('%3.0f Hz: %4.2f ',1/t,ps),'VerticalAlignment','bottom','HorizontalAlignment','center','color','g','Fontsize',12);
         end
-        plot(peaks2{i}.left.t,peaks2{i}.left.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',5);
-        plot(peaks2{i}.right.t,peaks2{i}.right.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',5);
+%         plot(peaks2{i}.left.t,peaks2{i}.left.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',5);
+%         plot(peaks2{i}.right.t,peaks2{i}.right.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',5);
+% plos one 2017
+plot(peaks2{i}.left.t,peaks2{i}.left.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',3);
+        plot(peaks2{i}.right.t,peaks2{i}.right.y,'Marker','o','Markerfacecolor','r','MarkeredgeColor','r','MarkerSize',3);
         
         
         ybase=peaks2{i}.v2012_base_where_widths;
@@ -138,11 +145,16 @@ if length(peaks2)>1
         
     
 %     fres=[500 300 200 150 100 70 50 20];
+      ahandle=gca;
+%       fres = 1./ahandle.XTick;  % uncoment to display feq scale
 %     set(gca,'xtick',1./fres);
-%     set(gca,'xticklabel',fres);
-%     xlabel('Frequency (Hz)')
+%     set(gca,'xticklabel',round(fres,1));
+
+
+    xlabel('Frequency (Hz)')
 %     ylabel('arbitrary normalized units')   %% VJ  2015 commented to display only the autocorrelation
 ylabel('Amplitude')
+% ylabel('Autocorrelation Index');
 end
 
 if target_frequency>0 % search only at one special frequency
@@ -204,8 +216,18 @@ end
 
 
 %set(gca,'ylim',[0 2]); % VJ2014
-xlabel('time interval(sec)'); % VJ 2015
+xlabel('Time interval(sec)'); % VJ 2015
+hf=gcf;
+hf.Position(3)=700;
+hf.Position(4)=600;
+hf.Position(1)=10;
+hf.Position(2)=10;
 
+hs=gca;
+hs.FontName='Arial';
+% hs.FontSize=8;
+
+% t1 = text(hs,4000,0.1,'A','FontWeight','bold','FontSize',12,'FontName','Arial');
 return
 
 function fre=x2fre(sig,x)

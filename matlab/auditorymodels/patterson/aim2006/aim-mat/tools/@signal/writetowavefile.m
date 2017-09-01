@@ -19,4 +19,4 @@
 function writetowavefile(sig,name)
 samplerate=getsr(sig);
 readsounddata=getdata(sig);
-wavwrite(readsounddata,samplerate,name);
+audiowrite(name,readsounddata,samplerate);

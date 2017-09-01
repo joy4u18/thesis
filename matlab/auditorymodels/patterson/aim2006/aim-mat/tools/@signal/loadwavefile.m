@@ -38,7 +38,7 @@ function [sig1,sig2]=loadwavefile(sig,orgname,timestart,duration)
 [name,path,ext]=fileparts(orgname);
 if strcmp(lower(ext),'.wav')
     try
-        [data,sr,nbits]=wavread(orgname);
+        [data,sr]=audioread(orgname);
     catch
         error(sprintf('cant open file %s',orgname))
     end

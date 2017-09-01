@@ -393,7 +393,10 @@ switch current_plot
 			generating_options_line=['options=handles.all_options.usermodule.' generating_module ';'];
 			eval(generating_options_line);
 			options.handles=handles;
-			plotstr=sprintf('%s(usermodule,options,%d,myaxes2)',display_function,current_frame_number);
+			figure(11); % for plos one vj2017
+            hs=gca;
+            plotstr=sprintf('%s(usermodule,options,%d,hs)',display_function,current_frame_number);
+%             plotstr=sprintf('%s(usermodule,options,%d,myaxes2)',display_function,current_frame_number);
 			eval(plotstr);
 		end
 end
@@ -446,7 +449,7 @@ if current_plot>1 && withtime
 	end
 	
 else
-	set(myaxes2,'TickLength',[0.01,0.01]);
+% 	set(myaxes2,'TickLength',[0.01,0.01]);  % did not know how to fix this for plos one article so commenting it for now (ugly fix) Vj2017
 end
 
 if current_plot>1 && withfre
@@ -495,7 +498,7 @@ if current_plot>1 && withfre
 	end
 	
 else
-	set(myaxes2,'TickLength',[0.01,0.01]);
+% 	set(myaxes2,'TickLength',[0.01,0.01]); % did not know how to fix this for plos one article so commenting it for now (ugly fix) Vj2017
 end
  %VJ 2014
 %  grid on;  

@@ -122,7 +122,7 @@ if posh_print ~=0
 %    outfile=fopen('frq_res.ff','w');
 %    fprintf(outfile,'%.4f,%.4f\n',[fz,20*log10(abs(hz))]');
 %    fclose(outfile);
-	plot(fz,20*log10(abs(hz)),'b','linewidth',1.8);
+	plot(fz,20*log10(abs(hz)),'b','linewidth',2);
 	set(gca,'box','on'); %%%% default with R12 is off
 	title(title_str,'fontsize',13); xlabel('Frequency (Hz)','fontsize',11); ylabel('Relative transmission (dB)','fontsize',11);
 	set(gca,'TickDirMode','manual','TickLength',[0 0]); %% turn off ticking
@@ -174,3 +174,11 @@ end
 % end
 % 
 % WriteDSAMFIRParFile(fir_eq, fs, inverse);
+%%
+
+%% Vj2017 for publishing in plos one modifed the dimensions of the figure
+% hf=gcf;
+% hf.Position(3)=800;
+% hf.Position(4)=600;
+% hf.Position(1)=10;
+% hf.Position(2)=10;

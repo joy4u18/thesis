@@ -62,7 +62,8 @@ for i=1:size(SHP_AC,1)
     r=flipud(r);
     
     figure;
-    plot( x, r ./ m, 's','linewidth',2);
+%     plot( x, r ./ m, 's','linewidth',2);
+    plot( x, r ./ m, 'ro');   % plos one 2017
     axis([min(x) max(x) 0.2 1.2]);
     axis square;
     hold on;
@@ -105,7 +106,23 @@ for i=1:size(SHP_AC,1)
 %         z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
         z_2(j,:)=xfit(pfit==0.69);
         
+        
+        hf=gcf;
+hf.Position(3)=700;
+hf.Position(4)=600;
+hf.Position(1)=10;
+hf.Position(2)=10;
+
+
+hs=gca;
+hs.FontSize=10;
+hs.FontName='Arial';
+
+        
         h1=legend('proportion of correct','Local linear fit');
+        h1.FontName='Arial';
+        h1.FontWeight='bold';
+        h1.FontSize=10;
         set(h1,'location','best');
         xlabel('Sharpness (accums)');
         ylabel('Proportion of correct responses');

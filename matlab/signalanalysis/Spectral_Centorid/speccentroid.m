@@ -11,7 +11,7 @@ close all;
 
 %%
 %%  Locating and Initialzing the names for the .wav files
-cd('D:\D\sp4\Thesisfiles\MATLAB\RECORDINGS\Exactduration_callibration\conference\500ms\left_ear')
+cd('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\lecture\500ms\left_ear')
 
 wavfile=dir('*.wav');          % To read the .wav files in the directory
 T_count=1;                     % Setting the counters
@@ -19,12 +19,15 @@ T_count1=1;
 
 color=hsv(10);
 
-ti={'NoObject rec1';'NoObject rec2';'Object at 50cm';...
-    'Object at 100cm';'Object at 200cm';'Object at 300cm'; ...
-    'Object at 400cm';'Object at 500cm'};
+% ti={'NoObject rec1';'NoObject rec2';'Object at 50cm';...
+%     'Object at 100cm';'Object at 200cm';'Object at 300cm'; ...
+%     'Object at 400cm';'Object at 500cm'};
+
+% ti={'A','B','C','D','E','F','G','H'};
+
 
 % ti={'NoObject';'Object at 100cm';'Object at 150cm'};
-
+ ti={'A','B','C'};
 
 T_mean_sc=0;
 
@@ -74,19 +77,29 @@ for j=1:length(wavfile)
         
         T_mean_sc= T_mean_sc./10;
         
-        subplot(4,2,T_count1)
+%         hs=subplot(4,2,T_count1)
+        hs = subplot(2,2,T_count1)    % Uncoment this to plot the results from lecture room.
         plot((0:T_framecount-1)*(T_overlaptime), T_mean_sc,'linewidth',2);
-        axis([0 (T_framecount-1)*T_overlaptime 0 T_fs/4])
+%         axis([0 (T_framecount-1)*T_overlaptime 0 T_fs/4])
+        axis([0 0.9 0 44.1e3/4])   % Changed the axis scaling to be consistent in displaying the figures in the same way  for all the three rooms
+        set(gca,'YTick',[0 3e3 6e3 9e3]);
         hold on; grid on ;        
         xlabel('Time(sec)');
         ylabel('Frequency (Hz)');
-        
         T_mean_sc=0;
         
         T_count=1;
-        title(['Mean of the spectral centroid over 10 recordings for ' ti{T_count1}]);
+%         title(['Mean of the spectral centroid over 10 recordings for ' ti{T_count1}]);
+        ht = text(hs,0.8,9000,ti{1,T_count1},'FontWeight','bold','FontSize',12,'FontName','Arial');   
         T_count1=T_count1+1;
                 
     end    
 end
 %%
+
+%%
+hf=gcf;
+hf.Position(3)=800;
+hf.Position(4)=600;
+hf.Position(1)=10;
+hf.Position(2)=10;

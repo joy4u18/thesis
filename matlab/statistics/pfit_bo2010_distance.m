@@ -22,8 +22,10 @@ bpc_5_anc=round(([9.79 8.81 5.14 4.39 4.78 5.04]./10)*56);
 bpc_50_anc=round(([9.65 9.75 4.98 4.73 4.73 4.71]./10)*56);
 bpc_500_anc=round(([9.67 9.94 5.18 4.98 5.56 5.08]./10)*56);
 
-B_AC=[bpc_5_anc;bpc_50_anc;bpc_500_anc;bpc_5_conf;bpc_50_conf;bpc_500_conf];
-
+% B_AC=[bpc_5_anc;bpc_50_anc;bpc_500_anc;bpc_5_conf;bpc_50_conf;bpc_500_conf];
+% B_AC=[bpc_5_anc;bpc_5_conf];  % For plos one article vj2017
+% B_AC=[bpc_50_anc;bpc_50_conf];
+B_AC=[bpc_500_anc;bpc_500_conf];
 
 % Lecture room
 
@@ -82,9 +84,10 @@ m=[56 56 56  56 56 56]';			% Total trails at each distance
 for i=1:size(B_AC,1)
 
     
-r=S_AC(i,:)';
+r=B_AC(i,:)';
 
-figure(i);
+% figure(i);
+hs=subplot(1,2,i) % plos one vj2017
 plot( x, r ./ m, 'ro');
 axis([min(x) max(x) 0.2 1.2]); 
 axis square;
@@ -93,12 +96,12 @@ grid on;
 
 %% Gaussian Fit
 degpol = 1;                                    % Degree of the polynomial
-guessing =0.4;                                 % Guessing rate
-lapsing = 0;                                % Lapsing rate
-b = binomfit_lims( r, m, x, degpol,'logit', guessing, lapsing);
+guessing =0.5;                                 % Guessing rate
+lapsing = 0.01;                                % Lapsing rate
+b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing);
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
-pfit = binomval_lims( b, xfit, 'logit', guessing, lapsing);
+pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing);
 plot( xfit, pfit, 'k' ,'linewidth',2);         % Plot the fitted curve
 
 z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));
@@ -123,8 +126,8 @@ bwd_max = max( x ) - min( x );
 % end
 
 % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
-bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6); 
-% bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+% bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6); 
+bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
 
 hhh(:,i)=bwd;
 % hhh_1(:,i)=bwd;
@@ -148,10 +151,30 @@ D = deviance(r,m,i_pfit)
 
 z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
 
+
+hf=gcf;
+hf.Position(3)=700;
+hf.Position(4)=600;
+hf.Position(1)=10;
+hf.Position(2)=10;
+
+
+hs=gca;
+hs.FontSize=10;
+hs.FontName='Arial';
+
 h1=legend('Mean proportion of correct','Weibull fit','Local linear fit');
-set(h1,'location','best');
+h1.FontName='Arial';
+h1.FontWeight='bold';
+h1.FontSize=8;
+% set(h1,'location','best');
 xlabel('Distance from the object (cm)');
 ylabel('Proportion of correct responses');
+
+
+
+
+
 
 else
     

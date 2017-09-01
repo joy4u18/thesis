@@ -539,7 +539,7 @@ function [imageData, alpha] = export_fig(varargin)
                     clear C M Y K K_
                 end
                 append_mode = {'overwrite', 'append'};
-                imwrite(A, [options.name '.tif'], 'Resolution', options.magnify*get(0, 'ScreenPixelsPerInch'), 'WriteMode', append_mode{options.append+1});
+                imwrite(A, [options.name '.tif'], 'Resolution', options.magnify*get(0, 'ScreenPixelsPerInch'), 'WriteMode', append_mode{options.append+1},'Compression','lzw');
             end
         end
 
