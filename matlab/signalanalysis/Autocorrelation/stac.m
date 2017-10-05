@@ -8,8 +8,8 @@ clear all;
 close all;
 
 %%
-% [T_input, T_fs]=audioread('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\anechoic\5ms\Left_ear\ED_o_100_A005_01_left.wav');
-[T_input, T_fs]=audioread('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\anechoic\500ms\Left_ear\ED_o_100_A500_01_left.wav');
+[T_input, T_fs]=audioread('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\anechoic\5ms\Left_ear\ED_o_100_A005_01_left.wav');
+% [T_input, T_fs]=audioread('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\anechoic\500ms\Left_ear\ED_o_100_A500_01_left.wav');
 
 T_frametime=32e-3;
 T_overlaptime=32e-3;
@@ -40,21 +40,22 @@ for i=1:T_overlaplength: (T_overlaplength*T_factor)+1
 hs=subplot(3,2,T_framecount);
 plot(T_lag(T_framecount,T_framelength:end),T_ac(T_framecount,T_framelength:end),'linewidth',2);
 grid on;
-                   
-% axis([0 T_lag(end) -10 10]);
-axis([0 T_lag(end) -50 50]);
+hs.XTickLabel=round(hs.XTick/48,0);                
+axis([0 T_lag(end) -10 10]);
+% axis([0 T_lag(end) -50 50]);
 % hl=legend(c{1,T_framecount});
 % hl.Box='off';
-% t1 = text(hs,1300,6,c{1,T_framecount},'FontWeight','bold','FontSize',12,'FontName','Arial');
-t1 = text(hs,1300,30,c{1,T_framecount},'FontWeight','bold','FontSize',12,'FontName','Arial');
-xlabel('Lag');
+t1 = text(hs,1300,6,c{1,T_framecount},'FontWeight','bold','FontSize',12,'FontName','Arial');
+% t1 = text(hs,1300,30,c{1,T_framecount},'FontWeight','bold','FontSize',12,'FontName','Arial');
+xlabel('Lag (ms)');
 ylabel('ACF Index');
+hs.FontName='Arial';
                    
                    
 end
 %%
 hf=gcf;
-hf.Position(3)=700;
+hf.Position(3)=800;
 hf.Position(4)=600;
 hf.Position(1)=10;
 hf.Position(2)=10;

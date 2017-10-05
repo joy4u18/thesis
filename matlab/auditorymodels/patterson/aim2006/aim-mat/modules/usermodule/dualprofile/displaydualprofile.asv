@@ -19,7 +19,7 @@ if nargin<4
 %     ax=gca;
 end
 
-hs=subplot(2,2,3);   % for plos one article vj2017
+hs=subplot(2,2,2);   % for plos one article vj2017
 ax=hs;
 
 
@@ -116,7 +116,7 @@ hs.FontName='Arial';
 % t1 = text(hs,4000,0.25,'B','FontWeight','bold','FontSize',12,'FontName','Arial');
 % t1 = text(hs,4000,0.5,'B','FontWeight','bold','FontSize',12,'FontName','Arial');
 
-t1 = text(hs,4000,0.125,'C','FontWeight','bold','FontSize',12,'FontName','Arial');
+% t1 = text(hs,4000,0.125,'C','FontWeight','bold','FontSize',12,'FontName','Arial');
 % t1 = text(hs,4000,0.25,'C','FontWeight','bold','FontSize',12,'FontName','Arial');
 
 % t1 = text(hs,4000,0.05,'D','FontWeight','bold','FontSize',12,'FontName','Arial');

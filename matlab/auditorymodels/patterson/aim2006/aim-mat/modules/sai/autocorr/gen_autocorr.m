@@ -64,8 +64,8 @@ napvalues=getvalues(nap);
 count=0;
 tic;
 
-% saibuffer=zeros(nr_channels,nrdots_insai);
-saibuffer=zeros(nr_channels,nrdots_insai-1);  % only for Experiment 2 VJ2015
+saibuffer=zeros(nr_channels,nrdots_insai);
+% saibuffer=zeros(nr_channels,nrdots_insai-1);  % only for Experiment 2 VJ2015
 % % waithand=waitbar(0,'generating SAI','CreateCancelBtn','cancel_callback');
 waithand=waitbar(0,'generating autocorrelation');
 

@@ -1,6 +1,6 @@
 % Description : The script loads the .wav files from a directory and plots the mean spectral centroid of 10 versions with desired frame and overlap time.
 % Note        : Uncomment the commented section to plot the spectral centroid for individual versions with a small modification in the remaining code
-%             : Manually comment 22 and uncomment the 26 line for recordings in lecture room
+%             : Manually comment 22 and uncomment the 26 line for recordings in conference room
 % Author      : Vijay Kiran Gidla (joy4u18@gmail.com)
 
 %%
@@ -11,7 +11,7 @@ close all;
 
 %%
 %%  Locating and Initialzing the names for the .wav files
-cd('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\lecture\500ms\left_ear')
+cd('C:\Users\joy4u\OneDrive\Thesis\RECORDINGS\Exactduration_callibration\conference\500ms\left_ear')
 
 wavfile=dir('*.wav');          % To read the .wav files in the directory
 T_count=1;                     % Setting the counters
@@ -23,11 +23,11 @@ color=hsv(10);
 %     'Object at 100cm';'Object at 200cm';'Object at 300cm'; ...
 %     'Object at 400cm';'Object at 500cm'};
 
-% ti={'A','B','C','D','E','F','G','H'};
+ti={'A','B','C','D','E','F','G','H'};
 
 
 % ti={'NoObject';'Object at 100cm';'Object at 150cm'};
- ti={'A','B','C'};
+%  ti={'A','B','C'};
 
 T_mean_sc=0;
 
@@ -77,14 +77,15 @@ for j=1:length(wavfile)
         
         T_mean_sc= T_mean_sc./10;
         
-%         hs=subplot(4,2,T_count1)
-        hs = subplot(2,2,T_count1)    % Uncoment this to plot the results from lecture room.
+        hs=subplot(4,2,T_count1)
+%         hs = subplot(2,2,T_count1)    % Uncoment this to plot the results from conference room.
         plot((0:T_framecount-1)*(T_overlaptime), T_mean_sc,'linewidth',2);
-%         axis([0 (T_framecount-1)*T_overlaptime 0 T_fs/4])
-        axis([0 0.9 0 44.1e3/4])   % Changed the axis scaling to be consistent in displaying the figures in the same way  for all the three rooms
+        axis([0 (T_framecount-1)*T_overlaptime 0 T_fs/4])
+%         axis([0 0.9 0 44.1e3/4])   % Changed the axis scaling to be consistent in displaying the figures in the same way  for all the three rooms
         set(gca,'YTick',[0 3e3 6e3 9e3]);
+        set(gca,'FontName','Arial');
         hold on; grid on ;        
-        xlabel('Time(sec)');
+        xlabel('Time (sec)');
         ylabel('Frequency (Hz)');
         T_mean_sc=0;
         

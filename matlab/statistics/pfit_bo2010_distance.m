@@ -80,6 +80,8 @@ m=[56 56 56  56 56 56]';			% Total trails at each distance
 
 % x=[100 150]';		% This is for lecture room but as non parametric fit requires 3 inputs these were not conisdered in the analysis of the thesis
 % m=[56 56]';
+T_count = 0;
+tlabels={'A','B'};
 
 for i=1:size(B_AC,1)
 
@@ -88,7 +90,7 @@ r=B_AC(i,:)';
 
 % figure(i);
 hs=subplot(1,2,i) % plos one vj2017
-plot( x, r ./ m, 'ro');
+plot( x, r ./ m, 'bo');
 axis([min(x) max(x) 0.2 1.2]); 
 axis square;
 hold on;
@@ -102,7 +104,7 @@ b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing);
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
 pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing);
-plot( xfit, pfit, 'k' ,'linewidth',2);         % Plot the fitted curve
+plot( xfit, pfit, 'b--' ,'linewidth',2);         % Plot the fitted curve
 
 z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));
 
@@ -171,8 +173,9 @@ h1.FontSize=8;
 xlabel('Distance from the object (cm)');
 ylabel('Proportion of correct responses');
 
+T_count = T_count+1;
 
-
+ht = text(hs,450,0.3,tlabels{1,T_count},'FontWeight','bold','FontSize',12,'FontName','Arial');   
 
 
 

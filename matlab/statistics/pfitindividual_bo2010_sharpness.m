@@ -63,7 +63,7 @@ for i=1:size(SHP_AC,1)
     
     figure;
 %     plot( x, r ./ m, 's','linewidth',2);
-    plot( x, r ./ m, 'ro');   % plos one 2017
+    plot( x, r ./ m, 'bo');   % plos one 2017
     axis([min(x) max(x) 0.2 1.2]);
     axis square;
     hold on;

@@ -182,3 +182,4 @@ end
 % hf.Position(4)=600;
 % hf.Position(1)=10;
 % hf.Position(2)=10;
+% set(gca,'FontName','Arial');
