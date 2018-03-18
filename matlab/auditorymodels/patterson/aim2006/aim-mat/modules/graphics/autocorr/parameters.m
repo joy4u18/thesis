@@ -18,7 +18,7 @@ autocorr.display_time=0;
 autocorr.time_profile_scale=1;
 
 autocorr.plotstyle='surf'; 
-autocorr.colormap='gray'; 
+autocorr.colormap='default';    % changed this for PLOS BIO vj2017
 autocorr.colorbar='off';
 autocorr.viewpoint=[0 90];
 autocorr.camlight=[50,30;0,90]; 

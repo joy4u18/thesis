@@ -123,7 +123,7 @@ for i=1:size(B_AC,1)
     x=flipud(x);
     r=flipud(r);
     
-    figure(i);
+%     figure(i);
     plot( x, r ./ m, 'ro');
     axis([min(x) max(x) 0.2 1.2]);
     axis square;

@@ -345,7 +345,7 @@ switch current_plot
 			h=plot(sig,str);set(gca,'YAxisLocation','right');
 			set(gca,'YLim',[0 allmax*1.1]);
 		else
-			hand=plot(current_frame,str,myaxes2);
+			hand=plot(current_frame,str,myaxes2);  %% vj2017 . this is just a footprint to see where the plotting is done for the sai
 			%%% TCW - AIM2006
             %zmin=0;zmax=50/current_scale;
 			zmin=0;zmax=(max(current_frame)+eps*1000)/current_scale;

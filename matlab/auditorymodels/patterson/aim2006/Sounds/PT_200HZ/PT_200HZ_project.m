@@ -4,20 +4,20 @@
 
 %%%%%%%%%%%%%
 %   PT_200HZ
-%   19-Oct-2017
+%   11-Dec-2017
 %   produced by joy4u
 % Dont write anything in this file
 %%%%%%%%%%%%%
-current_plot=7;
-start_time=6;
-duration=0.040000;
+current_plot=6;
+start_time=100;
+duration=0.030000;
 scale=1.000000;
 hastime=0;
 hasfreq=0;
 hassignal=0;
 winx=175;
 winy=3.833333e+01;
-grafixwinx=361;
-grafixwiny=1.796667e+02;
-grafixwinb=604;
-grafixwinh=3.666667e+02;
+grafixwinx=3.603333e+02;
+grafixwiny=2.776667e+02;
+grafixwinb=560;
+grafixwinh=420;

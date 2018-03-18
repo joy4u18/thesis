@@ -174,7 +174,7 @@ else
 % 		handle=surf(ax,cvals,'LineStyle','none');
 		handle=surf(ax,cvals,'LineStyle','none');
 %     	view(ax,viewpoint);
-    	view(ax,[0 90]);
+%     	view(ax,[0 90]);
 	else
 		handle=waterfall(ax,cvals);    % do the plotting!
 		% this is a very important trick: If we plot it from directly above ([0 80])
@@ -230,7 +230,7 @@ else % its not logarithmic!
     else
         set(ax,'xlim',[1 nrx])
         set(ax,'ylim',[1 nr_channels ])
-        set(ax,'zlim',[0 1])
+%         set(ax,'zlim',[0 1])  % vj2017 . commented this fot the striking image in PlOS Bio
         
 %         axis([ 1 nrx 1 nr_channels 0 1]);
     end

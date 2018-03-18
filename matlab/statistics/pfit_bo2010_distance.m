@@ -88,8 +88,8 @@ for i=1:size(B_AC,1)
     
 r=B_AC(i,:)';
 
-% figure(i);
-hs=subplot(1,2,i) % plos one vj2017
+figure(i);
+% hs=subplot(1,2,i) % plos one vj2017
 plot( x, r ./ m, 'bo');
 axis([min(x) max(x) 0.2 1.2]); 
 axis square;
@@ -104,7 +104,7 @@ b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing);
 numxfit = 499;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
 pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing);
-plot( xfit, pfit, 'b--' ,'linewidth',2);         % Plot the fitted curve
+% plot( xfit, pfit, 'b--' ,'linewidth',2);         % Plot the fitted curve
 
 z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));
 
