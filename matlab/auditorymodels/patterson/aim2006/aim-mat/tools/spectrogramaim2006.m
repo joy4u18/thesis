@@ -8,7 +8,7 @@
 % documentation and everything is on http://www.acousticscale.org
 
 
-function f=spectrogram(sig,nr_f,maxfre)
+function f=spectrogramaim2006(sig,nr_f,maxfre)
 
 nsig=changesr(sig,maxfre*2);
 sr=getsr(nsig);
