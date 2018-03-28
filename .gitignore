@@ -47,3 +47,5 @@ Temporary Items
 .apdisk
 matlab/statistics/res_expt1_conf_anechoic.xls
 *.xls
+*.tif
+matlab/signalanalysis/Spectrogram/generateSpectrogram.asv
