@@ -3,7 +3,7 @@ clearvars;
 close all;
 %%  Locating and Initialzing the names for the .wav files
 
-T_d=5;
+T_d=500;
 cLow = -180;
 cHigh = 0;
 roomnames = {'anechoic','conference','lecture'};
@@ -58,9 +58,9 @@ for roomindex = 1:3
         
         set(gca,'FontName','Arial');
         %     if(T_room ==1)
-        %         ht = text(hs,380+T_d,28,ti{1,T_count1},'FontWeight','bold','FontSize',12,'FontName','Arial');
+        %         ht = text(hs,380+T_d,24,ti{1,T_count1},'FontWeight','bold','FontSize',12,'FontName','Arial');
         %     else
-        %         ht = text(hs,380+T_d,25,ti{1,T_count1},'FontWeight','bold','FontSize',12,'FontName','Arial');
+        %         ht = text(hs,380+T_d,24,ti{1,T_count1},'FontWeight','bold','FontSize',12,'FontName','Arial');
         %     end
         
         if(T_room<3 && T_noobjectcount > 0) % this is to discard the first no object
@@ -69,18 +69,21 @@ for roomindex = 1:3
                 T_count=1;
                 try
                     if(T_room ==1)
+                        ht = text(hs,380+T_d,26,ti{1,T_acounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_acounter = T_acounter+1;
                         if(T_acounter == T_ccounter)
                             break;
                         end
                         hs=subplot(3,3,T_acounter);
                     elseif(T_room == 2)
+                        ht = text(hs,380+T_d,26,ti{1,T_ccounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_ccounter = T_ccounter+1;
                         if(T_ccounter == T_lcounter)
                             break;
                         end
                         hs=subplot(3,3,T_ccounter);
                     else
+                        ht = text(hs,380+T_d,24,ti{1,T_lcounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_lcounter = T_lcounter+1;
                         hs=subplot(3,3,T_lcounter);
                     end
@@ -93,6 +96,7 @@ for roomindex = 1:3
                 T_count=1;
                 try
                     if(T_room ==1)
+                        ht = text(hs,380+T_d,26,ti{1,T_acounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_acounter = T_acounter+1;
                         T_count = -9; % this is to retrive object at 200  and discard 100 in the plot
                         if(T_acounter == T_ccounter)
@@ -100,6 +104,7 @@ for roomindex = 1:3
                         end
                         hs=subplot(3,3,T_acounter);
                     elseif(T_room == 2)
+                        ht = text(hs,380+T_d,26,ti{1,T_ccounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_ccounter = T_ccounter+1;
                         T_count = -9; % this is to retrive object at 200  and discard 100 in the plot
                         if(T_ccounter == T_lcounter)
@@ -107,6 +112,7 @@ for roomindex = 1:3
                         end
                         hs=subplot(3,3,T_ccounter);
                     else
+                        ht = text(hs,380+T_d,24,ti{1,T_lcounter},'FontWeight','bold','FontSize',12,'FontName','Arial');
                         T_lcounter = T_lcounter+1;
                         hs=subplot(3,3,T_lcounter);
                     end
