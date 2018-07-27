@@ -117,7 +117,7 @@ for i=1:size(B_AC,1)
     
     x=STL_AC(i,:)';		% Manually change the loudness data for different conditions
     
-    r=B_AC(i,:)';		% Manually change the sighted or the blind P(c) response
+    r=S_AC(i,:)';		% Manually change the sighted or the blind P(c) response
     
     
     x=flipud(x);

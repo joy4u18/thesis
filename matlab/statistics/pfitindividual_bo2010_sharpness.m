@@ -25,7 +25,9 @@ pc_500_anec=round(Bo2010_results(6:6:end,6).*56);
 pc_500_anec=reshape(pc_500_anec,6,20)';
 PC_AC=[pc_5_anec;pc_50_anec;pc_500_anec;pc_5_conf;pc_50_conf;pc_500_conf];
 
-PC_AC=[pc_500_anec(2,:);pc_500_anec(3,:);pc_500_anec(6,:)];
+% PC_AC=[pc_500_anec(2,:);pc_500_anec(3,:);pc_500_anec(6,:)];
+
+% PC_AC=[pc_500_anec(2,:);pc_500_anec(6,:)];
 %% Sharpness values
 %  Anechoic
 Sharpness_CF_mean_A_005_mean=[2.052 2.138 1.921 1.906 1.891 1.889];
@@ -39,7 +41,7 @@ Sharpness_CF_mean_C_500_mean=[2.0950    2.0430  1.9670    1.9500    1.9490    1.
 SHP_AC=[Sharpness_CF_mean_A_005_mean;Sharpness_CF_mean_A_050_mean;Sharpness_CF_mean_A_500_mean;Sharpness_CF_mean_C_005_mean;...
     Sharpness_CF_mean_C_050_mean;Sharpness_CF_mean_C_500_mean];
 
-SHP_AC=[Sharpness_CF_mean_A_500_mean],
+% SHP_AC=[Sharpness_CF_mean_A_500_mean], % for plos 2018
 
 % Lecture
 
@@ -56,14 +58,17 @@ for i=1:size(SHP_AC,1)
     x=SHP_AC(i,:)';		% Manually change the loudness data for different conditions
     x=flipud(x);        % This to ensure that we have incresing stimuli
     
-    for j=j:j+2
-%     for j=j:j+19
+%     for j=j:j+1    % for plos 2018
+% %     for j=j:j+2  % for plos 2017
+    for j=j:j+19
     r=PC_AC(j,:)';		% Manually change the sighted or the blind P(c) response        
     r=flipud(r);
     
+%     subplot(1,2,j);  % for plot 2018
     figure;
 %     plot( x, r ./ m, 's','linewidth',2);
     plot( x, r ./ m, 'bo');   % plos one 2017
+    
     axis([min(x) max(x) 0.2 1.2]);
     axis square;
     hold on;
@@ -103,12 +108,12 @@ for i=1:size(SHP_AC,1)
         pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
         plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
         
-%         z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
-        z_2(j,:)=xfit(pfit==0.69);
+        z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
+%         z_2(j,:)=xfit(pfit==0.69);
         
         
         hf=gcf;
-hf.Position(3)=700;
+hf.Position(3)=800;
 hf.Position(4)=600;
 hf.Position(1)=10;
 hf.Position(2)=10;
@@ -123,7 +128,7 @@ hs.FontName='Arial';
         h1.FontName='Arial';
         h1.FontWeight='bold';
         h1.FontSize=10;
-        set(h1,'location','best');
+%         set(h1,'location','best');
         xlabel('Sharpness (accums)');
         ylabel('Proportion of correct responses');
         
@@ -136,7 +141,7 @@ hs.FontName='Arial';
     end
     end
     
-%     j=j+1;
+    j=j+1;
 end
 % figure;
 % plot(z_2(1:20),'-s');
