@@ -60,3 +60,6 @@ matlab/statistics/r_pc.xlsx
 matlab/statistics/~$Lthd.xlsx
 matlab/statistics/~$rawdataAnovaLoudnessDiffThreshold.xlsx
 matlab/statistics/~$r_pc.xlsx
+*.tiff
+*.RData
+*.Rhistory

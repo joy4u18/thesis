@@ -175,7 +175,7 @@ end
 
 %%
 hf=gcf;
-hf.Position(3)=800;
-hf.Position(4)=600;
+hf.Position(3)=600;
+hf.Position(4)=500;
 hf.Position(1)=10;
 hf.Position(2)=10;

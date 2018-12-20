@@ -17,11 +17,11 @@ T_input=[T_anc_500_mean_left T_anc_500_mean_right T_conf_500_mean_left T_conf_50
 T_roundinput = round(T_input,1);
 T_table = table(T_roundinput(:,1),T_roundinput(:,2),T_roundinput(:,3),T_roundinput(:,4));
 T_table.Properties.RowNames={'No Object 1','No Object 2','50','100','200','300','400','500'};
-% T_table.Properties.VariableNames{1}='Leftear';
-% T_table.Properties.VariableNames{2}='Rightear';
-% T_table.Properties.VariableNames{3}='Leftear';
-% T_table.Properties.VariableNames{4}='Rightear';
-writetable(T_table,'SPL_AC.xls','WriteRowNames',true);
+T_table.Properties.VariableNames{1}='Leftear';
+T_table.Properties.VariableNames{2}='Rightear';
+T_table.Properties.VariableNames{3}='Leftear';
+T_table.Properties.VariableNames{4}='Rightear';
+writetable(T_table,'SPL_AC1.xls','WriteRowNames',true);
 
 
 
@@ -51,8 +51,8 @@ T_input=[T_lec_500_mean_left T_lec_500_mean_right];
 T_roundinput = round(T_input,1);
 T_table = table(T_roundinput(:,1),T_roundinput(:,2));
 T_table.Properties.RowNames={'No Object','100','150'};
-% T_table.Properties.VariableNames={'Left ear',' Right ear'};
-writetable(T_table,'SPL_L.xls','WriteRowNames',true);
+T_table.Properties.VariableNames={'Left ear',' Right ear'};
+writetable(T_table,'SPL_L1.xls','WriteRowNames',true);
 
 
 latexinput.data=T_input;

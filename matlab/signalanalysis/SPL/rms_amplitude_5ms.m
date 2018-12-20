@@ -14,7 +14,7 @@ clc;
 clear all;
 close all;
 %%  Locating and Initialzing the names for the .wav files
-cd('D:\D\sp4\Thesisfiles\MATLAB\RECORDINGS\Exactduration_callibration\anechoic\5ms\right_ear')
+cd('C:\Users\joy4u\OneDrive\Joy\Research\Thesis\RECORDINGS\Exactduration_callibration\anechoic\5ms\right_ear')
 
 wavfile=dir('*.wav');          % To read the .wav files in the directory
 T_count=0;                     % Setting the counters
@@ -35,6 +35,7 @@ for i=1:length(wavfile)
         T_count=0;
         T_count1=T_count1+1;
         T_meanamp(T_count1,1)=mean(T_amp);
+        T_semamp(T_count1,1)= std(T_amp)/sqrt(size(T_amp,2));
         T_outputamp(T_count1,:)=T_amp; %#ok<SAGROW>
         T_amp=0;
     end
