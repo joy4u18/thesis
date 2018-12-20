@@ -50,10 +50,6 @@ matlab/statistics/res_expt1_conf_anechoic.xls
 matlab/signalanalysis/Spectrogram/generateSpectrogram.asv
 *.asv
 matlab/statistics/Lthd (version 1).xlsb.xlsx
-matlab/statistics/Lthd - kopia.xlsx
-matlab/statistics/Lthd.xlsx
-matlab/statistics/pfitindividual_bo2010_loudness.mat
-matlab/statistics/rawdataAnovaLoudnessDiffThreshold.xlsx
 matlab/statistics/r_pc.csv
 matlab/statistics/r_pc.xlsx
 matlab/statistics/~$Lthd.xlsx
