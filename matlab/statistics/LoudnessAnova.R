@@ -40,7 +40,7 @@ Result = aov(LoudnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(
 
 summary(Result)
 
-
+print(model.tables(Result,"means"),digits=3)       #report the means and the number of subjects/cell
 
 
 

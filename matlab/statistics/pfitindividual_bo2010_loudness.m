@@ -42,7 +42,11 @@ STL_L_005_mean=[17.160 16.179];
 STL_L_500_mean=[54.712 52.466];
 STL_L=[STL_L_005_mean;STL_L_500_mean];
 
-%% Plot of the DATA
+%% Plot of the DATA based on the flag
+
+TPlot = 0;
+
+TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
 
 m=[56 56 56  56 56 56]';
 j=1;
@@ -52,13 +56,15 @@ for i=1:size(STL_AC,1)
     
     for j=j:j+19
         r=PC_AC(j,:)';		% Manually change the sighted or the blind P(c) response
-        r=flipud(r);        
+        r=flipud(r);       
+        if(TPlot==1)
         figure(j);
         plot( x, r ./ m, 's');
         axis([min(x) max(x) 0.2 1.2]);
         axis square;
         hold on;
         grid on;
+        end
         numxfit = 499;      % Number of new points to be generated minus 1
         xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';        
         %% LSfit        
@@ -80,40 +86,48 @@ for i=1:size(STL_AC,1)
             hhh(:,i)=bwd;            
             bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
             pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+            if(TPlot ==1)
             plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
             xlabel('Loudness (sones)');
             ylabel('Proportion of correct responses');
+            end
             
-            % Find the value at 75 % p(c)
-            try
+            % Find the value at 80 to 90 % p(c)
+            if(TPc80to90==1)
+            try                
             Lthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));
+            if(isnan(Lthd(j,1)))
+            Lthd(j,1) = x(end);    
+            end
             catch err
             Lthd(j,1)=x(end);    
+            end
+            else
+            try                
+            Lthd(j,1)=mean(xfit(pfit>0.73&pfit<0.75));
+            if(isnan(Lthd(j,1)))
+            Lthd(j,1) = x(end);    
+            end
+            catch err
+            Lthd(j,1)=x(end);    
+            end    
             end
                 
             %                                    
         else            
+            if(TPlot==1)
             xlabel('Loudness (sones)');
             ylabel('Proportion of correct responses');
+            end
         end
     end
     
     j=j+1;
 end
+
 %%
-% figure;
-% plot(z_2(1:20),'-s');
-% grid on;
-% xlabel('Particpant ID');
-% ylabel('Loudness Threshold (sones)');
-% set(gca,'XTick',1:20);
-% set(gca,'XLim',[1 20]);
-% hold on;
-% plot(z_2(21:40),'-s');
-% plot(z_2(41:60),'-s');
-% plot(z_2(61:80),'-s');
-% plot(z_2(81:100),'-s');
-% plot(z_2(101:120),'-s');
-% legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
-% dummy=reshape(z_2,20,6);
-% xlswrite('LT',dummy);
+if(TPc80to90==1)
+xlswrite('LthdIndividual',Lthd,'80to90')
+else
+xlswrite('LthdIndividual',Lthd,'73to75')    
+end
