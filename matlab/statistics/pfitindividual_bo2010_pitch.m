@@ -41,92 +41,92 @@ PS_AC=[Pitch_strength_mean_A_005_mean;Pitch_strength_mean_A_050_mean;Pitch_stren
 Pitch_strength_mean_L_005_mean=[0.29  0.28];
 Pitch_strength_mean_L_500_mean=[1.36 1.42];
 PS_L=[Pitch_strength_mean_L_005_mean;Pitch_strength_mean_L_500_mean];
-%% Plot of the DATA
+%% Plot of the DATA based on the flag
+
+TPlot = 0;
+
+TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
 
 m=[56 56 56  56 56 56]';
 j=1;
-for i=1:size(PS_AC,1)
-    
-    
-    x=PS_AC(i,:)';		% Manually change the loudness data for different conditions
-    x=flipud(x);        % This to ensure that we have incresing stimuli
+for i=1:size(PS_AC,1)    
+    x=PS_AC(i,:)';		% Manually change the pitch data for different conditions
+    x=flipud(x);        % This to ensure that we have incresing stimuli    
     
     for j=j:j+19
-    r=PC_AC(j,:)';		% Manually change the sighted or the blind P(c) response        
-    r=flipud(r);
-    
-    figure(i);
-    plot( x, r ./ m, 'ro');
-    axis([min(x) max(x) 0.2 1.2]);
-    axis square;
-    hold on;
-    grid on;
-    numxfit = 499;                                  % Number of new points to be generated minus 1
-    xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
-    
-    %% LSfit
-    
-    if(length(x)>2)
-       
-        guessing=0;
-        lapsing=0;        
-        temp=diff(x);
-        bwd_min = min(temp(temp>0));
-		
-%         if(isempty(bwd_min))
-%             bwd_min=min(abs(temp));    %VJ2015
-%         end
-
-        bwd_max = max( x ) - min( x );
-		
-%         if(bwd_min == bwd_max)
-%             bwd_min=1;    %VJ 2015
-%         end
-
-% Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
-        bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);               
-%         bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
-        
-        
-        hhh(:,i)=bwd;
-%         hhh_1(:,i)=bwd;
-        bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
-       
-        
-        pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
-        plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
-        
-        z_2(j)=mean(xfit(pfit>0.73&pfit<0.75));
-        
-%         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');
-%         set(h1,'location','best');
-        xlabel('Pitch strength (autocorrelation index)');
-        ylabel('Proportion of correct responses');
-        
-    else
-        
-        h1=legend('Mean proportion of correct','logistic fit');
-        set(h1,'location','best');
-        xlabel('Loudness (sones)');
-        ylabel('Proportion of correct responses');
-    end
+        r=PC_AC(j,:)';		% Manually change the sighted or the blind P(c) response
+        r=flipud(r);       
+        if(TPlot==1)
+        figure(j);
+        plot( x, r ./ m, 's');
+        axis([min(x) max(x) 0.2 1.2]);
+        axis square;
+        hold on;
+        grid on;
+        end
+        numxfit = 499;      % Number of new points to be generated minus 1
+        xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';        
+        %% LSfit        
+        if(length(x)>2)            
+            guessing=0;
+            lapsing=0;
+            temp=diff(x);
+            bwd_min = min(temp(temp>0));            
+            if(isempty(bwd_min))
+                bwd_min=min(abs(temp));    %VJ2015
+            end            
+            bwd_max = max( x ) - min( x );            
+            if(bwd_min == bwd_max)
+                bwd_min=1;    %VJ 2015
+            end            
+            % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
+            bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+            %bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);            
+            hhh(:,i)=bwd;            
+            bwd = bwd(3); % choose the third estimate, which is based on cross-validated deviance
+            pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+            if(TPlot ==1)
+            plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
+            xlabel('Loudness (sones)');
+            ylabel('Proportion of correct responses');
+            end
+            
+            % Find the value at 80 to 90 % p(c)
+            if(TPc80to90==1)
+            try                
+            Pthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));
+            if(isnan(Pthd(j,1)))
+            Pthd(j,1) = x(end);    
+            end
+            catch err
+            Pthd(j,1)=x(end);    
+            end
+            else
+            try                
+            Pthd(j,1)=mean(xfit(pfit>0.73&pfit<0.75));
+            if(isnan(Pthd(j,1)))
+            Pthd(j,1) = x(end);    
+            end
+            catch err
+            Pthd(j,1)=x(end);    
+            end    
+            end
+                
+            %                                    
+        else            
+            if(TPlot==1)
+            xlabel('Loudness (sones)');
+            ylabel('Proportion of correct responses');
+            end
+        end
     end
     
     j=j+1;
 end
-figure;
-plot(z_2(1:20),'-s');
-grid on;
-xlabel('Particpant ID');
-ylabel('Pitch strength Threshold (autocorrelation index)');
-set(gca,'XTick',1:20);
-set(gca,'XLim',[1 20]);
-hold on;
-plot(z_2(21:40),'-s');
-plot(z_2(41:60),'-s');
-plot(z_2(61:80),'-s');
-plot(z_2(81:100),'-s');
-plot(z_2(101:120),'-s');
-legend('Anechoic 5ms','Anechoic 50ms','Anechoic 500ms','Conference 5ms','Conference 50ms','Conference 500ms','location','best');
-dummy=reshape(z_2,20,6);
-xlswrite('PT',dummy);
+
+%%
+if(TPc80to90==1)
+xlswrite('PthdIndividual',Pthd,'80to90')
+else
+xlswrite('PthdIndividual',Pthd,'73to75')    
+end

@@ -36,7 +36,8 @@ LData$Id = as.factor(LData$Id)
 typeof(LData$Id)
 
 
-Result = aov(LoudnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),LData)
+#Result = aov(LoudnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),LData)
+Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),LData)
 
 summary(Result)
 
