@@ -14,9 +14,9 @@ SData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaSharpnessDif
 names(SData)
 summary(SData)
 
-typeof(SData$LoudnessThreshold)
-SData$LoudnessThreshold = as.integer(SData$LoudnessThreshold)
-typeof(SData$LoudnessThreshold)
+typeof(SData$SharpnessThreshold)
+SData$SharpnessThreshold = as.integer(SData$SharpnessThreshold)
+typeof(SData$SharpnessThreshold)
 
 
 typeof(SData$Duration)
@@ -36,8 +36,8 @@ SData$Id = as.factor(SData$Id)
 typeof(SData$Id)
 
 
-Result = aov(SharpnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
-#Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
+#Result = aov(SharpnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
+Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
 
 summary(Result)
 

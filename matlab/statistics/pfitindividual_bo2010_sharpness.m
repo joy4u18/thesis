@@ -52,7 +52,7 @@ SHP_L=[Sharpness_CF_mean_L_005_mean;Sharpness_CF_mean_L_500_mean];
 
 TPlot = 0;
 
-TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
+TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
 
 m=[56 56 56  56 56 56]';
 j=1;
