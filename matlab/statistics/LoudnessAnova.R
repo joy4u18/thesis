@@ -9,7 +9,7 @@ library(ggplot2)
 
 
 # load the data
-LData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaLoudnessDiffThreshold.xlsx")
+LData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaLoudnessDiffThresholdWithout9Sub.xlsx")
 
 names(LData)
 summary(LData)

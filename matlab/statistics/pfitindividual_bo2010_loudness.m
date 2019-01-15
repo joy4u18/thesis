@@ -44,12 +44,14 @@ STL_L=[STL_L_005_mean;STL_L_500_mean];
 
 %% Plot of the DATA based on the flag
 
-TPlot = 0;
+TPlot = 1;
 
 TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
 
 m=[56 56 56  56 56 56]';
 j=1;
+IndexNan =[];
+IndexError=[];
 for i=1:size(STL_AC,1)    
     x=STL_AC(i,:)';		% Manually change the loudness data for different conditions
     x=flipud(x);        % This to ensure that we have incresing stimuli    
@@ -97,19 +99,23 @@ for i=1:size(STL_AC,1)
             try                
             Lthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));
             if(isnan(Lthd(j,1)))
-            Lthd(j,1) = x(end);    
+            Lthd(j,1) = x(end);  
+            IndexNan = [IndexNan j]; % save the subject index who performed bad 
             end
             catch err
             Lthd(j,1)=x(end);    
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end
             else
             try                
-            Lthd(j,1)=mean(xfit(pfit>0.73&pfit<0.75));
+            Lthd(j,1)=mean(xfit(pfit>0.7&pfit<0.75));
             if(isnan(Lthd(j,1)))
             Lthd(j,1) = x(end);    
+            IndexNan = [IndexNan j]; % save the subject index who performed bad
             end
             catch err
             Lthd(j,1)=x(end);    
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end    
             end
                 
@@ -128,6 +134,10 @@ end
 %%
 if(TPc80to90==1)
 xlswrite('LthdIndividual',Lthd,'80to90')
+xlswrite('LthdIndividual',IndexNan,'80to90INan')
+xlswrite('LthdIndividual',IndexError,'80to90IError')
 else
 xlswrite('LthdIndividual',Lthd,'73to75')    
+xlswrite('LthdIndividual',IndexNan,'73to75INan')
+xlswrite('LthdIndividual',IndexError,'73to75IError')
 end
