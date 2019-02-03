@@ -43,10 +43,11 @@ Pitch_strength_mean_L_500_mean=[1.36 1.42];
 PS_L=[Pitch_strength_mean_L_005_mean;Pitch_strength_mean_L_500_mean];
 %% Plot of the DATA based on the flag
 
-TPlot = 0;
+TPlot = 1;
 
-TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
-
+TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
+IndexNan =[];
+IndexError=[];
 m=[56 56 56  56 56 56]';
 j=1;
 for i=1:size(PS_AC,1)    
@@ -97,18 +98,25 @@ for i=1:size(PS_AC,1)
             Pthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));
             if(isnan(Pthd(j,1)))
             Pthd(j,1) = x(end);    
+            IndexNan = [IndexNan j]; % save the subject index who performed bad 
             end
             catch err
-            Pthd(j,1)=x(end);    
+            Pthd(j,1)=x(end);  
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end
             else
             try                
-            Pthd(j,1)=mean(xfit(pfit>0.73&pfit<0.75));
+            Pthd(j,1)=mean(xfit(pfit>0.7&pfit<0.8));
+            if(isnan(Pthd(j,1)))
+            Pthd(j,1)=mean(xfit(pfit>0.81&pfit<0.83));  
+            end
             if(isnan(Pthd(j,1)))
             Pthd(j,1) = x(end);    
+            IndexNan = [IndexNan j]; % save the subject index who performed bad 
             end
             catch err
-            Pthd(j,1)=x(end);    
+            Pthd(j,1)=x(end); 
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end    
             end
                 
@@ -127,6 +135,9 @@ end
 %%
 if(TPc80to90==1)
 xlswrite('PthdIndividual',Pthd,'80to90')
+xlswrite('PthdIndividual',IndexNan,'80to90INan')
 else
 xlswrite('PthdIndividual',Pthd,'73to75')    
+xlswrite('PthdIndividual',IndexNan,'73to75INan')
+
 end

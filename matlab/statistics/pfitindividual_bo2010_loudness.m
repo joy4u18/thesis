@@ -46,7 +46,7 @@ STL_L=[STL_L_005_mean;STL_L_500_mean];
 
 TPlot = 1;
 
-TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
+TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
 
 m=[56 56 56  56 56 56]';
 j=1;

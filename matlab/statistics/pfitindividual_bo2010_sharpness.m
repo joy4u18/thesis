@@ -52,8 +52,9 @@ SHP_L=[Sharpness_CF_mean_L_005_mean;Sharpness_CF_mean_L_500_mean];
 
 TPlot = 0;
 
-TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
-
+TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
+IndexNan =[];
+IndexError=[];
 m=[56 56 56  56 56 56]';
 j=1;
 for i=1:size(SHP_AC,1)    
@@ -104,18 +105,25 @@ for i=1:size(SHP_AC,1)
             Sthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));
             if(isnan(Sthd(j,1)))
             Sthd(j,1) = x(end);    
+            IndexNan = [IndexNan j]; % save the subject index who performed bad
             end
             catch err
             Sthd(j,1)=x(end);    
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end
             else
             try                
-            Sthd(j,1)=mean(xfit(pfit>0.73&pfit<0.75));
+            Sthd(j,1)=mean(xfit(pfit>0.7&pfit<0.8));
             if(isnan(Sthd(j,1)))
+            Sthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));                
+            end
+            if(isnan(Sthd(j,1)))    
             Sthd(j,1) = x(end);    
+            IndexNan = [IndexNan j]; % save the subject index who performed bad
             end
             catch err
             Sthd(j,1)=x(end);    
+            IndexError = [IndexError j]; % save the subject index who performed bad 
             end    
             end
                 
@@ -134,6 +142,8 @@ end
 %%
 if(TPc80to90==1)
 xlswrite('SthdIndividual',Sthd,'80to90')
+xlswrite('SthdIndividual',IndexNan,'80to90INan')
 else
 xlswrite('SthdIndividual',Sthd,'73to75')    
+xlswrite('SthdIndividual',IndexNan,'70to80INan')
 end

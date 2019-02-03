@@ -6,10 +6,13 @@ rm(list=ls())
 library(readxl)
 library(dplyr)
 library(ggplot2)
+library(ez)
+library(car)
 
 
 # load the data
-PData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaPitchDiffThreshold.xlsx")
+#PData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaPitchDiffThreshold.xlsx")
+PData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawDataAnovaPitchDiffThresholdWithout9Sub.xlsx")
 
 names(PData)
 summary(PData)
@@ -37,12 +40,17 @@ typeof(PData$Id)
 
 
 #Result = aov(PitchThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),PData)
-Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),PData)
-
-summary(Result)
-
-print(model.tables(Result,"means"),digits=3)       #report the means and the number of subjects/cell
-
+#Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),PData)
+Result <- ezANOVA(data = PData, 
+                  dv = .(DiffThreshold), 
+                  wid = .(Id), 
+                  within = .(Duration, Room), 
+                  between = .(Group),
+                  type = 3, detailed = TRUE)
+#
+#summary(Result)
+#print(model.tables(Result,"means"),digits=3)       #report the means and the number of subjects/cell
+print(Result)
 
 
 

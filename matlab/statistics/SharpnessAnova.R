@@ -6,10 +6,13 @@ rm(list=ls())
 library(readxl)
 library(dplyr)
 library(ggplot2)
+library(ez)
+library(car)
 
 
 # load the data
-SData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaSharpnessDiffThreshold.xlsx")
+#SData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaSharpnessDiffThreshold.xlsx")
+SData <- read_excel("E:/GitHub/thesis/matlab/statistics/rawdataAnovaSharpnessDiffThresholdWithout9Sub.xlsx")
 
 names(SData)
 summary(SData)
@@ -37,12 +40,18 @@ typeof(SData$Id)
 
 
 #Result = aov(SharpnessThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
-Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
+#Result = aov(DiffThreshold~(Duration*Room*Group)+Error(Id/(Duration*Room))+(Group),SData)
 
-summary(Result)
+Result <- ezANOVA(data = SData, 
+                  dv = .(DiffThreshold), 
+                  wid = .(Id), 
+                  within = .(Duration, Room), 
+                  between = .(Group),
+                  type = 3, detailed = TRUE)
 
-print(model.tables(Result,"means"),digits=3)       #report the means and the number of subjects/cell
-
+#summary(Result)
+#print(model.tables(Result,"means"),digits=3)       #report the means and the number of subjects/cell
+print(Result)
 
 
 
