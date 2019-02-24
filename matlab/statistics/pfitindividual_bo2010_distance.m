@@ -29,7 +29,7 @@ PC_AC=[pc_5_anec;pc_50_anec;pc_500_anec;pc_5_conf;pc_50_conf;pc_500_conf];
 x=([50 100 200 300 400 500])';		% Distance 
 m=[56 56 56  56 56 56]';			% Total trails at each distance
 
-
+IndexNan=[];d
 for i=1:size(PC_AC,1)
 
     
@@ -72,7 +72,13 @@ bwd = bwd(3); % choose the third estimate, which is based on cross-validated dev
 pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
 plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
 
-thd(i)=mean(xfit(pfit>0.73&pfit<0.75));
+
+Dthd(i,1)=mean(xfit(pfit>0.73&pfit<0.75));
+if(isnan(Dthd(i,1)))
+    Dthd(i,1) = x(1);
+    IndexNan = [IndexNan i]; % save the subject index who performed bad
+end
+
 
 h1=legend('proportion of correct','Weibull fit','Local linear fit');
 set(h1,'location','best');
