@@ -58,7 +58,10 @@ spc_50_anc=round(([9.35 9.23 5.4 5.18 5 4.62]./10)*56);
 spc_500_anc=round(([9.74 9.8 4.86 4.78 4.61 4.67]./10)*56);
 
 
-S_AC=[spc_5_anc; spc_50_anc; spc_500_anc ; spc_5_conf ; spc_50_conf ; spc_500_conf];
+%S_AC=[spc_5_anc; spc_50_anc; spc_500_anc ; spc_5_conf ; spc_50_conf ; spc_500_conf];
+% S_AC=[spc_5_anc;spc_5_conf];  % For plos one article vj2017
+% S_AC=[spc_50_anc;spc_50_conf];
+S_AC=[spc_500_anc;spc_500_conf];
 
 % Lecture room
 
@@ -83,10 +86,10 @@ m=[56 56 56  56 56 56]';			% Total trails at each distance
 T_count = 0;
 tlabels={'A','B'};
 
-for i=1:size(B_AC,1)
+for i=1:size(S_AC,1)
 
     
-r=B_AC(i,:)';
+r=S_AC(i,:)';
 
 figure(i);
 % hs=subplot(1,2,i) % plos one vj2017
@@ -151,7 +154,7 @@ i_pfit=pfit(i_idx);
 
 D = deviance(r,m,i_pfit)
 
-z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
+z_2(i)=mean(xfit(pfit>=0.73&pfit<=0.76));
 
 
 hf=gcf;

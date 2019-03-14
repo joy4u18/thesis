@@ -22,6 +22,7 @@ SData$SharpnessThreshold = as.integer(SData$SharpnessThreshold)
 typeof(SData$SharpnessThreshold)
 
 
+
 typeof(SData$Duration)
 SData$Duration = as.factor(SData$Duration)
 typeof(SData$Duration)

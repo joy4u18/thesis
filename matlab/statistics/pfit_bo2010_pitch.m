@@ -120,7 +120,7 @@ for i=1:size(B_AC,1)
     x=PS_AC(i,:)';
 %     x=x(1:3);
     
-    r=S_AC(i,:)';
+    r=B_AC(i,:)';
 %     r=r(1:3);
     
     x=flipud(x);
@@ -167,7 +167,7 @@ for i=1:size(B_AC,1)
         pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
         plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
         
-         z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
+         z_2(i)=mean(xfit(pfit>=0.73&pfit<=0.76));
 
         
         %         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');

@@ -29,7 +29,7 @@ PC_AC=[pc_5_anec;pc_50_anec;pc_500_anec;pc_5_conf;pc_50_conf;pc_500_conf];
 x=([50 100 200 300 400 500])';		% Distance 
 m=[56 56 56  56 56 56]';			% Total trails at each distance
 
-IndexNan=[];d
+IndexNan=[];
 for i=1:size(PC_AC,1)
 
     
@@ -46,12 +46,12 @@ degpol = 1;                                    % Degree of the polynomial
 guessing =0.5;                                 % Guessing rate
 lapsing = 0.01;                                % Lapsing rate
 b = binomfit_lims( r, m, x, degpol,'weibull', guessing, lapsing,2 );
-numxfit = 499;                                 % Number of new points to be generated minus 1
+numxfit = 1999;                                 % Number of new points to be generated minus 1
 xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';
 pfit = binomval_lims( b, xfit, 'weibull', guessing, lapsing,2 );
 plot( xfit, pfit, 'k' ,'linewidth',2);         % Plot the fitted curve
 
-z_1(i)=mean(xfit(pfit>0.73&pfit<0.75));
+z_1(i)=mean(xfit(pfit>=0.73&pfit<=0.76));
 %% Locfit
 
 guessing=0;
@@ -73,7 +73,7 @@ pfit = locglmfit( xfit, r, m, x, bwd,'logit',guessing,lapsing,2,1,'normpdf',100,
 plot( xfit, pfit, 'b','linewidth',2 );  % Plot the fitted curve
 
 
-Dthd(i,1)=mean(xfit(pfit>0.73&pfit<0.75));
+Dthd(i,1)=mean(xfit(pfit>=0.73&pfit<=0.76));
 if(isnan(Dthd(i,1)))
     Dthd(i,1) = x(1);
     IndexNan = [IndexNan i]; % save the subject index who performed bad

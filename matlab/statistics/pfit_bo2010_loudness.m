@@ -117,7 +117,7 @@ for i=1:size(B_AC,1)
     
     x=STL_AC(i,:)';		% Manually change the loudness data for different conditions
     
-    r=S_AC(i,:)';		% Manually change the sighted or the blind P(c) response
+    r=B_AC(i,:)';		% Manually change the sighted or the blind P(c) response
     
     
     x=flipud(x);
@@ -154,8 +154,8 @@ for i=1:size(B_AC,1)
 %         end
 
 % Switch between cross-validated or bootstrap by manually uncommenting the corresponding lines
-        bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);               
-%         bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
+%         bwd = bandwidth_cross_validation( r, m, x, [ bwd_min, bwd_max ],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);               
+        bwd= bandwidth_bootstrap(r, m, x, [ bwd_min, bwd_max ],30,[],'logit',guessing,lapsing,2,1,'normpdf',100,1e-6);
         
         
         hhh(:,i)=bwd;
@@ -180,7 +180,7 @@ for i=1:size(B_AC,1)
         
         D = deviance(r,m,i_pfit)
         
-        z_2(i)=mean(xfit(pfit>0.73&pfit<0.75));
+        z_2(i)=mean(xfit(pfit>=0.73&pfit<=0.76));
         
 %         h1=legend('Mean proportion of correct','logisitc fit','Local linear fit');
 %         set(h1,'location','best');

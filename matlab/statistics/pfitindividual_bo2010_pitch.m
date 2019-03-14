@@ -45,7 +45,7 @@ PS_L=[Pitch_strength_mean_L_005_mean;Pitch_strength_mean_L_500_mean];
 
 TPlot = 1;
 
-TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
+TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
 IndexNan =[];
 IndexError=[];
 m=[56 56 56  56 56 56]';
@@ -65,7 +65,7 @@ for i=1:size(PS_AC,1)
         hold on;
         grid on;
         end
-        numxfit = 499;      % Number of new points to be generated minus 1
+        numxfit = 1999;      % Number of new points to be generated minus 1
         xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';        
         %% LSfit        
         if(length(x)>2)            
@@ -106,9 +106,9 @@ for i=1:size(PS_AC,1)
             end
             else
             try                
-            Pthd(j,1)=mean(xfit(pfit>0.7&pfit<0.8));
+            Pthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));
             if(isnan(Pthd(j,1)))
-            Pthd(j,1)=mean(xfit(pfit>0.81&pfit<0.83));  
+            Pthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));  
             end
             if(isnan(Pthd(j,1)))
             Pthd(j,1) = x(end);    

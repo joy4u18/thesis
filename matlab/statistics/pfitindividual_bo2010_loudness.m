@@ -67,7 +67,7 @@ for i=1:size(STL_AC,1)
         hold on;
         grid on;
         end
-        numxfit = 499;      % Number of new points to be generated minus 1
+        numxfit = 1999;      % Number of new points to be generated minus 1
         xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';        
         %% LSfit        
         if(length(x)>2)            
@@ -108,9 +108,9 @@ for i=1:size(STL_AC,1)
             end
             else
             try                
-            Lthd(j,1)=mean(xfit(pfit>0.7&pfit<0.8));
-             if(isnan(Lthd(j,1)))
-            Lthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));                
+            Lthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));
+            if(isnan(Lthd(j,1)))
+            Lthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));                
             end
             if(isnan(Lthd(j,1)))
             Lthd(j,1) = x(end);    

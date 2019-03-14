@@ -50,9 +50,9 @@ Sharpness_CF_mean_L_500_mean=[2.2000    2.1100];
 SHP_L=[Sharpness_CF_mean_L_005_mean;Sharpness_CF_mean_L_500_mean];
 %% Plot of the DATA based on the flag
 
-TPlot = 0;
+TPlot = 1;
 
-TPc80to90 = 1; % if this is set to zero  73 to 75% is chosen
+TPc80to90 = 0; % if this is set to zero  73 to 75% is chosen
 IndexNan =[];
 IndexError=[];
 m=[56 56 56  56 56 56]';
@@ -72,7 +72,7 @@ for i=1:size(SHP_AC,1)
         hold on;
         grid on;
         end
-        numxfit = 499;      % Number of new points to be generated minus 1
+        numxfit = 1999;      % Number of new points to be generated minus 1
         xfit = [min(x):(max(x)-min(x))/numxfit:max( x ) ]';        
         %% LSfit        
         if(length(x)>2)            
@@ -113,9 +113,9 @@ for i=1:size(SHP_AC,1)
             end
             else
             try                
-            Sthd(j,1)=mean(xfit(pfit>0.7&pfit<0.8));
+            Sthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));
             if(isnan(Sthd(j,1)))
-            Sthd(j,1)=mean(xfit(pfit>0.8&pfit<0.9));                
+            Sthd(j,1)=mean(xfit(pfit>=0.73&pfit<=0.76));                
             end
             if(isnan(Sthd(j,1)))    
             Sthd(j,1) = x(end);    
@@ -145,5 +145,5 @@ xlswrite('SthdIndividual',Sthd,'80to90')
 xlswrite('SthdIndividual',IndexNan,'80to90INan')
 else
 xlswrite('SthdIndividual',Sthd,'73to75')    
-xlswrite('SthdIndividual',IndexNan,'70to80INan')
+xlswrite('SthdIndividual',IndexNan,'73to75INan')
 end
